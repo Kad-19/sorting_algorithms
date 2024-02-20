@@ -30,7 +30,8 @@ void swap(int *array, size_t size, int *a, int *b)
  */
 size_t lomuto_p(int *array, size_t size, ssize_t bottom, ssize_t top)
 {
-	int i, j, pivot = array[top];
+	int pivot = array[top];
+	int i, j;
 
 	for (i = j = bottom; j < top; j++)
 		if (array[j] < pivot)
@@ -41,21 +42,21 @@ size_t lomuto_p(int *array, size_t size, ssize_t bottom, ssize_t top)
 }
 
 /**
- * qsort - quicksorts using Lomuto partitioning scheme
+ * q_sort - quicksorts using Lomuto partitioning scheme
  * @array: the integer array
  * @size: the size of the array
  * @bottom: the bottom index of the sort range
  * @top: the top index of the sort range
  *
  */
-void qsort(int *array, size_t size, ssize_t bottom, ssize_t top)
+void q_sort(int *array, size_t size, ssize_t bottom, ssize_t top)
 {
 	if (bottom < top)
 	{
 		size_t k = lomuto_p(array, size, bottom, top);
 
-		qsort(array, size, bottom, k - 1);
-		qsort(array, size, k + 1, top);
+		q_sort(array, size, bottom, k - 1);
+		q_sort(array, size, k + 1, top);
 	}
 }
 
@@ -69,5 +70,5 @@ void quick_sort(int *array, size_t size)
 {
 	if (!array || !size)
 		return;
-	qsort(array, size, 0, size - 1);
+	q_sort(array, size, 0, size - 1);
 }
